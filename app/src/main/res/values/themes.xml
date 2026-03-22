@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MyApiTest" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.MyApiTest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue_dark</item>
+        <item name="colorSecondary">@color/accent_ice</item>
+        <item name="android:statusBarColor">@color/primary_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/surface_light</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="textInputStyle">@style/Widget.MyApiTest.TextInput</item>
+        <item name="materialButtonStyle">@style/Widget.MyApiTest.Button.Primary</item>
+    </style>
+
+    <style name="Widget.MyApiTest.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:elevation">0dp</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+    </style>
+
+    <style name="Widget.MyApiTest.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">14dp</item>
+        <item name="boxCornerRadiusTopEnd">14dp</item>
+        <item name="boxCornerRadiusBottomStart">14dp</item>
+        <item name="boxCornerRadiusBottomEnd">14dp</item>
+    </style>
+
+    <style name="Widget.MyApiTest.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">14dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">@color/primary_blue</item>
+    </style>
+
+    <style name="Widget.MyApiTest.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">14dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="strokeColor">@color/primary_blue</item>
+        <item name="android:textColor">@color/primary_blue</item>
+    </style>
+
+    <style name="TextAppearance.MyApiTest.Title" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.MyApiTest.BodyMuted" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
 </resources>

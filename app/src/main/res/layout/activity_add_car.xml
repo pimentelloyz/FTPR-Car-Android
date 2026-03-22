@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,30 +12,45 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#F4FFFFFF"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#A8D0FF"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
         <!-- Imagem do carro -->
         <ImageView
             android:id="@+id/carImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/bg_image_placeholder"
             android:contentDescription="@string/desc_car_image" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/selectImageButton"
+            style="@style/Widget.MyApiTest.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/btn_select_image"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+            android:text="@string/btn_select_image" />
 
         <!-- Nome -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MyApiTest.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/hint_car_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="@string/hint_car_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameInput"
@@ -45,11 +61,11 @@
 
         <!-- Ano -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MyApiTest.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/hint_car_year"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="@string/hint_car_year">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/yearInput"
@@ -61,11 +77,11 @@
 
         <!-- Placa -->
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MyApiTest.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/hint_car_licence"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="@string/hint_car_licence">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/licenceInput"
@@ -80,15 +96,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/label_location"
+            android:textColor="@color/text_primary"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/useMyLocationButton"
+            style="@style/Widget.MyApiTest.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/btn_use_my_location"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+            android:text="@string/btn_use_my_location" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,12 +114,12 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MyApiTest.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:hint="@string/hint_lat"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:hint="@string/hint_lat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/latInput"
@@ -112,11 +129,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MyApiTest.TextInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/hint_long"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:hint="@string/hint_long">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/longInput"
@@ -128,6 +145,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveButton"
+            style="@style/Widget.MyApiTest.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -140,6 +158,9 @@
             android:layout_gravity="center"
             android:visibility="gone"
             android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>

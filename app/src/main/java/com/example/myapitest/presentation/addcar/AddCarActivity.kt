@@ -1,21 +1,31 @@
 package com.example.myapitest.presentation.addcar
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.myapitest.R
 import com.example.myapitest.ServiceLocator
 import com.example.myapitest.databinding.ActivityAddCarBinding
 import com.example.myapitest.domain.model.Car
 import com.example.myapitest.domain.model.Place
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
 import java.util.UUID
 
 class AddCarActivity : AppCompatActivity() {
@@ -29,15 +39,22 @@ class AddCarActivity : AppCompatActivity() {
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
-            selectedImageUri = it
-            binding.carImageView.setImageURI(it)
+            val cachedImageUri = cacheImageLocally(it)
+            if (cachedImageUri == null) {
+                selectedImageUri = null
+                Toast.makeText(this, "Não foi possível ler essa imagem. Selecione outra.", Toast.LENGTH_SHORT).show()
+                return@let
+            }
+
+            selectedImageUri = cachedImageUri
+            binding.carImageView.setImageURI(cachedImageUri)
         }
     }
 
     private val locationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        if (granted) getLastLocation()
+        if (granted) getDeviceLocation()
         else Toast.makeText(this, "Permissão de localização negada", Toast.LENGTH_SHORT).show()
     }
 
@@ -70,17 +87,22 @@ class AddCarActivity : AppCompatActivity() {
     }
 
     private fun requestLocation() {
+        if (!isLocationServiceEnabled()) {
+            showEnableLocationDialog()
+            return
+        }
+
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            getLastLocation()
+            getDeviceLocation()
         } else {
             locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
-    private fun getLastLocation() {
+    private fun getDeviceLocation() {
         val fusedClient = LocationServices.getFusedLocationProviderClient(this)
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION
@@ -89,15 +111,57 @@ class AddCarActivity : AppCompatActivity() {
 
         fusedClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
-                currentLat = location.latitude
-                currentLong = location.longitude
-                binding.latInput.setText(currentLat.toString())
-                binding.longInput.setText(currentLong.toString())
-                Toast.makeText(this, "Localização obtida", Toast.LENGTH_SHORT).show()
+                fillLocation(location.latitude, location.longitude)
             } else {
-                Toast.makeText(this, "Não foi possível obter localização", Toast.LENGTH_SHORT).show()
+                requestCurrentLocation(fusedClient)
             }
+        }.addOnFailureListener {
+            requestCurrentLocation(fusedClient)
         }
+    }
+
+    private fun requestCurrentLocation(
+        fusedClient: com.google.android.gms.location.FusedLocationProviderClient
+    ) {
+        val cancellationTokenSource = CancellationTokenSource()
+        fusedClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token)
+            .addOnSuccessListener { location ->
+                if (location != null) {
+                    fillLocation(location.latitude, location.longitude)
+                } else {
+                    Toast.makeText(this, "Não foi possível obter localização. Verifique o GPS do emulador.", Toast.LENGTH_LONG).show()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Não foi possível obter localização. Verifique o GPS do emulador.", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun fillLocation(lat: Double, long: Double) {
+        currentLat = lat
+        currentLong = long
+        binding.latInput.setText(currentLat.toString())
+        binding.longInput.setText(currentLong.toString())
+        Toast.makeText(this, "Localização obtida", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isLocationServiceEnabled(): Boolean {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as? LocationManager
+            ?: return false
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun showEnableLocationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.location_disabled_title))
+            .setMessage(getString(R.string.location_disabled_message))
+            .setPositiveButton(getString(R.string.location_open_settings)) { _, _ ->
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+            .setNegativeButton(getString(R.string.location_cancel), null)
+            .show()
     }
 
     private fun saveCar() {
@@ -140,6 +204,21 @@ class AddCarActivity : AppCompatActivity() {
                 Toast.makeText(this@AddCarActivity, "Erro ao salvar: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun cacheImageLocally(sourceUri: Uri): Uri? {
+        return runCatching {
+            val sourceStream = contentResolver.openInputStream(sourceUri)
+                ?: return null
+
+            sourceStream.use { input ->
+                val destination = File(cacheDir, "car_${UUID.randomUUID()}.jpg")
+                FileOutputStream(destination).use { output ->
+                    input.copyTo(output)
+                }
+                Uri.fromFile(destination)
+            }
+        }.getOrNull()
     }
 
     private fun setLoading(isLoading: Boolean) {

@@ -10,9 +10,12 @@
     <!-- Activity titles -->
     <string name="title_add_car">Adicionar Carro</string>
     <string name="title_maps">Localização</string>
+    <string name="map_card_subtitle">Posição atual no mapa</string>
+    <string name="map_default_car_name">Carro</string>
 
     <!-- Login -->
     <string name="login_title">FTPR Car</string>
+    <string name="login_subtitle">Gestao inteligente da sua frota</string>
     <string name="hint_phone">Telefone (ex: +5511912345678)</string>
     <string name="hint_phone_number">Número de telefone</string>
     <string name="hint_code">Código de verificação</string>
@@ -28,6 +31,10 @@
     <string name="hint_car_licence">Placa (ex: ABC-1234)</string>
     <string name="label_location">Localização</string>
     <string name="btn_use_my_location">Usar minha localização</string>
+    <string name="location_disabled_title">Localização desativada</string>
+    <string name="location_disabled_message">Ative a localização do dispositivo para preencher latitude e longitude automaticamente.</string>
+    <string name="location_open_settings">Abrir ajustes</string>
+    <string name="location_cancel">Cancelar</string>
     <string name="hint_lat">Latitude</string>
     <string name="hint_long">Longitude</string>
     <string name="btn_save">Salvar</string>

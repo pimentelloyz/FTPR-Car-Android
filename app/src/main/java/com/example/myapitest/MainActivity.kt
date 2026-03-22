@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             putExtra(MapsActivity.EXTRA_TITLE, car.name)
         }
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun confirmDelete(car: Car) {
