@@ -24,12 +24,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.title_maps)
 
         lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
         long = intent.getDoubleExtra(EXTRA_LONG, 0.0)
         carName = intent.getStringExtra(EXTRA_TITLE) ?: getString(R.string.map_default_car_name)
+
+        supportActionBar?.title = carName
+        supportActionBar?.subtitle = getString(R.string.title_maps)
 
         binding.mapTitle.text = carName
         binding.mapCoords.text = String.format(Locale.US, "%.6f, %.6f", lat, long)
@@ -53,7 +57,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map.setPadding(0, 250, 0, 0)
+        map.setPadding(0, 320, 0, 0)
 
         val position = LatLng(lat, long)
         map.addMarker(MarkerOptions().position(position).title(carName))
