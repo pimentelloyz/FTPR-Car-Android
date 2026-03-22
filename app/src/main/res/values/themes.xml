@@ -18,6 +18,7 @@
         <item name="android:elevation">0dp</item>
         <item name="titleTextColor">@color/white</item>
         <item name="subtitleTextColor">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="Widget.MyApiTest.TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

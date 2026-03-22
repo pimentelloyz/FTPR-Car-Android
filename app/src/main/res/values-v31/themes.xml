@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MyApiTest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue_dark</item>
+        <item name="colorSecondary">@color/accent_ice</item>
+        <item name="android:statusBarColor">@color/primary_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:colorBackground">@color/surface_light</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="textInputStyle">@style/Widget.MyApiTest.TextInput</item>
+        <item name="materialButtonStyle">@style/Widget.MyApiTest.Button.Primary</item>
+
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="android:windowSplashScreenBackground">@color/primary_blue</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/primary_blue</item>
+    </style>
+
+</resources>

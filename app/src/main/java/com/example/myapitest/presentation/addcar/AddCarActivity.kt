@@ -23,9 +23,13 @@ import com.example.myapitest.domain.model.Place
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.firebase.storage.StorageException
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.File
 import java.io.FileOutputStream
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.util.UUID
 
 class AddCarActivity : AppCompatActivity() {
@@ -201,8 +205,17 @@ class AddCarActivity : AppCompatActivity() {
                 finish()
             }.onFailure { e ->
                 setLoading(false)
-                Toast.makeText(this@AddCarActivity, "Erro ao salvar: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@AddCarActivity, getSaveCarErrorMessage(e), Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun getSaveCarErrorMessage(error: Throwable): String {
+        return when (error) {
+            is UnknownHostException, is SocketTimeoutException -> "Sem conexão com o servidor. Verifique a internet."
+            is StorageException -> "Não foi possível enviar a imagem agora. Tente novamente."
+            is HttpException -> "Não foi possível salvar o carro agora."
+            else -> "Erro ao salvar o carro. Tente novamente."
         }
     }
 

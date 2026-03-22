@@ -18,6 +18,9 @@ import com.example.myapitest.presentation.maps.MapsActivity
 import com.example.myapitest.presentation.main.CarAdapter
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 .onFailure { error ->
                     Toast.makeText(
                         this@MainActivity,
-                        "Erro ao carregar: ${error.message}",
+                        getUserFriendlyErrorMessage(error, isDeleteOperation = false),
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -127,10 +130,25 @@ class MainActivity : AppCompatActivity() {
                 .onFailure { error ->
                     Toast.makeText(
                         this@MainActivity,
-                        "Erro ao excluir: ${error.message}",
+                        getUserFriendlyErrorMessage(error, isDeleteOperation = true),
                         Toast.LENGTH_LONG
                     ).show()
                 }
+        }
+    }
+
+    private fun getUserFriendlyErrorMessage(
+        error: Throwable,
+        isDeleteOperation: Boolean
+    ): String {
+        return when (error) {
+            is UnknownHostException, is SocketTimeoutException -> "Sem conexão com o servidor. Verifique a internet."
+            is HttpException -> {
+                if (isDeleteOperation) "Não foi possível excluir o carro agora." else "Não foi possível carregar os carros agora."
+            }
+            else -> {
+                if (isDeleteOperation) "Erro ao excluir o carro. Tente novamente." else "Erro ao carregar os carros. Tente novamente."
+            }
         }
     }
 

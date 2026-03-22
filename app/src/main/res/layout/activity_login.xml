@@ -62,14 +62,15 @@
                     style="@style/Widget.MyApiTest.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_phone_number">
+                    android:hint="@string/hint_phone_number"
+                    app:prefixText="+55 ">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phoneInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:text="+5511912345678" />
+                        android:inputType="number"
+                        android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -78,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:enabled="false"
                     android:text="@string/btn_send_code" />
             </LinearLayout>
 
@@ -109,6 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:enabled="false"
                     android:text="@string/btn_verify_code" />
             </LinearLayout>
         </FrameLayout>

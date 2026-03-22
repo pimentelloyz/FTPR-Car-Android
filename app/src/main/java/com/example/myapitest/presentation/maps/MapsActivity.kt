@@ -1,6 +1,7 @@
 package com.example.myapitest.presentation.maps
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapitest.R
 import com.example.myapitest.databinding.ActivityMapsBinding
@@ -25,8 +26,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.title_maps)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            setHomeButtonEnabled(true)
+            title = getString(R.string.title_maps)
+        }
+        binding.toolbar.navigationIcon = ContextCompat.getDrawable(
+            this,
+            androidx.appcompat.R.drawable.abc_ic_ab_back_material
+        )
+        binding.toolbar.navigationIcon?.setTint(ContextCompat.getColor(this, R.color.white))
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
         long = intent.getDoubleExtra(EXTRA_LONG, 0.0)
