@@ -12,6 +12,18 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.MyApiTest.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginBottom="12dp"
+            android:background="@color/primary_blue"
+            app:navigationIconTint="@color/white"
+            app:subtitleTextColor="@color/white"
+            app:title="@string/title_add_car"
+            app:titleTextColor="@color/white" />
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

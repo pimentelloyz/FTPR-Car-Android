@@ -66,8 +66,13 @@ class AddCarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddCarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Adicionar Carro"
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         setupView()
     }
 
