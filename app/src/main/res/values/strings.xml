@@ -1,3 +1,37 @@
 <resources>
-    <string name="app_name">MyApiTest - COLOQUE O SEU NOME AQUI</string>
+    <string name="app_name">FTPR Car</string>
+
+    <!-- Google Maps API Key - substitua pela sua chave -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB-Ct6vITJZ5aoy4_YO8eyyoliq4fD-Y7k</string>
+
+    <!-- Menu -->
+    <string name="menu_logout">Sair</string>
+
+    <!-- Activity titles -->
+    <string name="title_add_car">Adicionar Carro</string>
+    <string name="title_maps">Localização</string>
+
+    <!-- Login -->
+    <string name="login_title">FTPR Car</string>
+    <string name="hint_phone">Telefone (ex: +5511912345678)</string>
+    <string name="hint_phone_number">Número de telefone</string>
+    <string name="hint_code">Código de verificação</string>
+    <string name="hint_verification_code">Código de verificação (6 dígitos)</string>
+    <string name="btn_send_code">Enviar Código</string>
+    <string name="btn_verify_code">Verificar</string>
+
+    <!-- Add Car -->
+    <string name="desc_car_image">Imagem do carro</string>
+    <string name="btn_select_image">Selecionar Imagem</string>
+    <string name="hint_car_name">Nome do carro</string>
+    <string name="hint_car_year">Ano (ex: 2020/2021)</string>
+    <string name="hint_car_licence">Placa (ex: ABC-1234)</string>
+    <string name="label_location">Localização</string>
+    <string name="btn_use_my_location">Usar minha localização</string>
+    <string name="hint_lat">Latitude</string>
+    <string name="hint_long">Longitude</string>
+    <string name="btn_save">Salvar</string>
+
+    <!-- Main -->
+    <string name="btn_add_car">Adicionar Carro</string>
 </resources>
